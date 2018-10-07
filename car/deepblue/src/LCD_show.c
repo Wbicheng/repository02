@@ -8,7 +8,8 @@ void LCD_show()
   Site_t sitelcd={0,0};//字为16*16大小  行宽为80*80 
   if(zuowanflag)
   LCD_Str_ENCH (sitelcd,"这是一个左弯",FCOLOUR,BCOLOUR);
-
+  else if(youwanflag)
+  LCD_Str_ENCH (sitelcd,"这是一个右弯",FCOLOUR,BCOLOUR);
   /*else if(stop_flag)
   LCD_Str_ENCH (sitelcd,"这是终点线",FCOLOUR,BCOLOUR);*/
   else if(zhidaoflag)
