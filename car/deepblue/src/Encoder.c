@@ -23,7 +23,7 @@ int Encoder_speed2=0;             //±àÂëÆ÷2µÄÂö³å¼ÆÊıÖµ£¬ÔÚmainº¯ÊıÖĞµ÷ÓÃ¼´¿É»ñµ
  float P_moto = 10; 
  float I_moto = 7; 
  float D_moto = 1; 
-
+int debug_time=0;//µ÷ÊÔÄ£Ê½
 
 
 /*!
@@ -91,7 +91,18 @@ void PIT0_IRQHandler(void)
           break;
   
    }
-
+  if(deepblue==2 && debug_time!=1000)
+  {
+      debug_time++;
+  
+  }
+  if(debug_time==1000)
+  {
+      ftm_pwm_duty(FTM0, FTM_CH2, 0);
+      ftm_pwm_duty(FTM0, FTM_CH3, 0);
+  }  
+  else
+  {
      /*****************************µç»úPID**********************/
    if(Encoder_speed2<0)
      Encoder_speed2 = -Encoder_speed2;
@@ -103,7 +114,7 @@ void PIT0_IRQHandler(void)
       motorPWM =limitspeed;
    if(motorPWM<0)
       motorPWM = 0;
-    if(stop_flag && !zdnum)
+/*    if(stop_flag && !zdnum)
     {
         if(fznum) //ÖÕµãÏß·´×ª50³¡
         {
@@ -114,10 +125,11 @@ void PIT0_IRQHandler(void)
         }
         else
         ftm_pwm_duty(FTM0, FTM_CH3, 0);
-    }
+    }*/
    // else
    // ftm_pwm_duty(FTM0, FTM_CH2, motorPWM);
-    else if(motorPWM>0)
+//    else 
+     if(motorPWM>0)
     {
       ftm_pwm_duty(FTM0, FTM_CH2, motorPWM);
       ftm_pwm_duty(FTM0, FTM_CH3, 0);
@@ -131,4 +143,5 @@ void PIT0_IRQHandler(void)
    
     speedError[0] = speedError[1];//ÉÏÉÏ´ÎÎó²î
     speedError[1] = speedError[2];//ÉÏ´ÎÎó²î
+  }
 }

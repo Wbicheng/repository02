@@ -16,6 +16,6 @@ extern int Encoder_speed1;//编码器1的脉冲计数值，在main函数中调用即可获得计数值
 extern int Encoder_speed2;//编码器2的脉冲计数值
 extern int speedError[3];
 extern int currentspeed; 
-
+extern int debug_time;//调试模式
 
 #endif

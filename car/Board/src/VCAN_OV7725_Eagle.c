@@ -205,7 +205,7 @@ reg_s ov7725_eagle_reg[] =
     {OV7725_BDMStep      , 0x03},
     {OV7725_SDE          , 0x04},
     {OV7725_BRIGHT       , 0x00},
-    {OV7725_CNST         , 0x37},//阈值室外：0x28    实验室：0x53
+    {OV7725_CNST         , 0x2b},//阈值室外：0x28    实验室：0x53
     {OV7725_SIGN         , 0x06},
     {OV7725_UVADJ0       , 0x11},
     {OV7725_UVADJ1       , 0x02},
