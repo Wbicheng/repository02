@@ -26,7 +26,7 @@ void duoji()
   
   }
   mid_line/=20;
-  switch (deepblue)
+  switch (deepblue)//基准行
   {
   case 1: mid_line=visvalMid[20];break;
   case 2: mid_line=visvalMid[15];break;
@@ -99,7 +99,8 @@ void duoji()
     }
     Center=mid_line;
   }
-  
+  Kp=Kp_change;///蓝牙调Kp
+  Kd=Kd_change;///蓝牙调Kd
   errors=Center-initcenter;
   duoji_PWM=duojiMid+Kp*errors+Kd*(errors-perrors);    //计算打角
   if(duoji_PWM>rightLimit)

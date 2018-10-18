@@ -2,6 +2,8 @@
 #include "include.h"
 #include "LCD_show.h"
 
+
+
 void LCD_show()
 {
   /**************************KP KD******************/
@@ -15,21 +17,25 @@ void LCD_show()
   else if(zhidaoflag)
   LCD_Str_ENCH (sitelcd,"这是一个直道",FCOLOUR,BCOLOUR);
   else
-    LCD_clear(RED); 
+    LCD_clear(RED);
+   LCD_Str_ENCH (sitelcd,"Kp：",FCOLOUR,BCOLOUR);
   sitelcd.y=16;
-  if(jiwanflag)
+/*  if(jiwanflag)
   LCD_Str_ENCH (sitelcd,"急",FCOLOUR,BCOLOUR);
   else
   LCD_Str_ENCH (sitelcd,"不急",FCOLOUR,BCOLOUR);  
   LCD_num(sitelcd,wuxiaohang,FCOLOUR,BCOLOUR);
+ */
+  LCD_num(sitelcd,Kp,FCOLOUR,BCOLOUR);
   sitelcd.y=32;
-/*
-*/
- 
+//  LCD_Str_ENCH (sitelcd,"中线值：",FCOLOUR,BCOLOUR); //下行显示中线值          
+  LCD_Str_ENCH (sitelcd,"Kp：",FCOLOUR,BCOLOUR);
+  
   sitelcd.y=48;
 /*
  */
-  LCD_num(sitelcd,Center,FCOLOUR,BCOLOUR);
+//  LCD_num(sitelcd,Center,FCOLOUR,BCOLOUR); //中线值显示
+  LCD_num(sitelcd,Kd,FCOLOUR,BCOLOUR);
   key_init (KEY_MAX);//初始化键盘
   /********************蜂鸣器**************************/
 /*
@@ -58,15 +64,15 @@ void LCD_show()
   LCD_Img_gray_Z(site, size, imgdata , imgsize);
   /*************************电机速度*****************/
   sitelcd.x=60; 
-  sitelcd.y=16;
+  sitelcd.y=0;
   LCD_Str_ENCH (sitelcd,"电机速度：",FCOLOUR,BCOLOUR);
- LCD_Str_ENCH (sitelcd,"模式：",FCOLOUR,BCOLOUR);
- 
-  sitelcd.x=60;
-  sitelcd.y=32;
-  LCD_num(sitelcd,currentspeed,FCOLOUR,BCOLOUR);
   
-  sitelcd.x=60;
+  sitelcd.y=16;
+  LCD_num(sitelcd,currentspeed,FCOLOUR,BCOLOUR);
+ 
+  sitelcd.y=32;
+  LCD_Str_ENCH (sitelcd,"模式：",FCOLOUR,BCOLOUR);
+  
   sitelcd.y=48;
   LCD_num(sitelcd,deepblue,FCOLOUR,BCOLOUR);
 

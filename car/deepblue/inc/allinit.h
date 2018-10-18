@@ -5,7 +5,11 @@
 
 extern void DMA0_IRQHandler();
 extern void PORTA_IRQHandler();
+extern void uart5_test_handler();
 extern void allinit();
+extern char bluetooth;
+extern int Kp_change;//可变Kp
+extern int Kd_change;//可变Kd
 extern uint8 imgbuff[CAMERA_SIZE];
 extern uint8 img[CAMERA_H][CAMERA_W];
 extern Site_t site;    

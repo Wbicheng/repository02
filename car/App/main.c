@@ -40,7 +40,6 @@ void  main(void)
         sitelcd.y=48;
         LCD_num(sitelcd,timevar,FCOLOUR,BCOLOUR);
        */
-      
         
         
 #if 0  //串口发送图像  1时打开发送

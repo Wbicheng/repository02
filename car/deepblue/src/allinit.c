@@ -32,6 +32,7 @@ Size_t size;
 //函数声明
 void PORTA_IRQHandler();
 void DMA0_IRQHandler();
+void uart5_test_handler();
 
 /*************拔码开关*************/
 uint8 BM1=0; //D4
@@ -40,6 +41,11 @@ uint8 BM3=0; //D2
 uint8 BM4=0; //D1
 uint8 deepblue=0; //模式
 uint8 fznum=0;
+
+/**************蓝牙****************/
+char bluetooth;
+int Kp_change=20;//可变Kp
+int Kd_change=50;//可变Kd
 
 //SD卡初始化
 void init_disk_fatfs(void)   //state.diskok==1;
@@ -83,7 +89,7 @@ void allinit()
     { 
        deepblue=1; 
     }
-    if(!BM1 && !BM2 && BM3 && !BM4  )   //模式2  正常165 直道200
+    if(!BM1 && !BM2 && BM3 && !BM4  )   //模式2  调试档位 运行10s后电机停止 
     {
        deepblue=2;
     }
@@ -134,7 +140,14 @@ void allinit()
 
     LCD_init();
    // LCD_Str_ENCH            (site,"鹰眼正在初始化",FCOLOUR,BCOLOUR);
-
+    led_init (LED0);
+    led (LED0,LED_OFF);
+    led_init (LED1);
+    led (LED1,LED_OFF);
+    led_init (LED2);
+    led (LED2,LED_OFF);
+    led_init (LED3);
+    led (LED3,LED_OFF);
     camera_init(imgbuff);
     //LCD_Str_ENCH            (site,"鹰眼初始化成功,准备采集",FCOLOUR,BCOLOUR);
     site.y = 110;
@@ -160,6 +173,7 @@ void allinit()
     
     
     } 
+   
     /*****************舵机************************/
     ftm_pwm_init(FTM3,FTM_CH5,300,duojiMid);
     /*****************电机************************/
@@ -173,6 +187,10 @@ void allinit()
     Encoder(right_Encoder,10);
     /******************蜂鸣器***********************/
      gpio_init (PTD0,GPO,1);
+     /******************蓝牙***********************/
+     uart_init (UART5, 9600); //HC-31初始设定为9600
+     set_vector_handler(UART5_RX_TX_VECTORn , uart5_test_handler);//设置接收发送中断
+     uart_rx_irq_en(UART5);//使能接收中断 ！！
     /******************sd卡***********************/
     //SPI_Configuration();
     Site_t sitelcd={0,0};
@@ -244,6 +262,30 @@ void DMA0_IRQHandler()
     camera_dma();
 }
 
+//uart5 中断服务函数
+void uart5_test_handler()
+{ 
+    UARTn_e uratn = UART5;
+    if(UART_S1_REG(UARTN[uratn]) & UART_S1_RDRF_MASK)   //接收数据寄存器满  访问数据寄存器后主动清理中断标志位
+    {
+         bluetooth =  UART_D_REG(UARTN[uratn]);  //bluetooth取值：0x01、0x02、
+   /*      if(bluetooth!=0x00)
+        {
+            led_turn (LED0);  //串口接收指示灯
+           led_turn (LED1); 
+         
+         } 
+    */
+        switch(bluetooth)
+        {
+            case 0x01:Kp_change++; led_turn (LED0);led_turn (LED1);break;
+            case 0x02:Kp_change--; led_turn (LED0);led_turn (LED1);break;
+            case 0x03:Kd_change++; led_turn (LED2);led_turn (LED3);break; 
+            case 0x04:Kd_change--; led_turn (LED2);led_turn (LED3);break;
+        }
+    }
+
+}
 
 
 
