@@ -10,6 +10,7 @@ void handle_img()
   cleanpoint();             //除噪
   get_center();             //中线提取
   zhidao();                 //直道识别
+  quick_stop();             //急停识别
   
   /******************赛道宽度补线****************/
  /* if(wuxiaohang_flag && (youwanflag || zuowanflag))

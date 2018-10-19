@@ -38,14 +38,12 @@ void LCD_show()
   LCD_num(sitelcd,Kd,FCOLOUR,BCOLOUR);
   key_init (KEY_MAX);//初始化键盘
   /********************蜂鸣器**************************/
-/*
-  if(        
-     )
- 
+
+  if(quickstop_flag)
    gpio_set (PTD0, 0);
   else
     gpio_set (PTD0, 1);
- */
+
   /**************************图像*******************/
   //真实显示
   size.H = CAMERA_H;
@@ -65,8 +63,12 @@ void LCD_show()
   /*************************电机速度*****************/
   sitelcd.x=60; 
   sitelcd.y=0;
+  
   LCD_Str_ENCH (sitelcd,"电机速度：",FCOLOUR,BCOLOUR);
   
+  if(quickstop_flag)
+    LCD_Str_ENCH (sitelcd,"前方急停",FCOLOUR,BCOLOUR);
+   
   sitelcd.y=16;
   LCD_num(sitelcd,currentspeed,FCOLOUR,BCOLOUR);
  

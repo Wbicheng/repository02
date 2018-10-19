@@ -6,6 +6,7 @@
 extern void DMA0_IRQHandler();
 extern void PORTA_IRQHandler();
 extern void uart5_test_handler();
+extern void stop_now();
 extern void allinit();
 extern char bluetooth;
 extern int Kp_change;//ø…±‰Kp

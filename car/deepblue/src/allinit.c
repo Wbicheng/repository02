@@ -33,7 +33,8 @@ Size_t size;
 void PORTA_IRQHandler();
 void DMA0_IRQHandler();
 void uart5_test_handler();
-
+void stop_now();
+void bluetooth_control();
 /*************拔码开关*************/
 uint8 BM1=0; //D4
 uint8 BM2=0; //D3
@@ -47,6 +48,99 @@ char bluetooth;
 int Kp_change=20;//可变Kp
 int Kd_change=50;//可变Kd
 
+//蓝牙控停
+void stop_now()
+{
+    char ch=0;
+    DisableInterrupts;
+    ftm_pwm_duty(FTM0, FTM_CH2, 0);
+    ftm_pwm_duty(FTM0, FTM_CH3, 0);
+    while(1)
+    {
+        uart_getchar (UART5,&ch); 
+        if(ch==0x05)
+          break;
+        if(ch==0x06)
+        {
+            bluetooth_control();
+            break;//一旦退出遥控模式，一切恢复
+        } 
+    }
+    EnableInterrupts;
+}
+//蓝牙遥控模式
+void bluetooth_control()
+{
+    char act=0;
+    int speed=0;
+    int turning=duojiMid;
+    uint8 fz_flag=0;
+    uint8 get_over=0;
+    DisableInterrupts;
+    led (LED1,LED_ON); 
+    led (LED2,LED_ON); 
+    led (LED0,LED_ON); 
+    led (LED3,LED_ON);
+    ftm_pwm_duty(FTM0, FTM_CH2, 0);
+    ftm_pwm_duty(FTM0, FTM_CH3, 0);
+    
+    while(1)
+    {
+        uart_getchar (UART5,&act);
+        switch(act)
+        {
+            case 0x06: get_over=1;break;//退出遥控模式
+            case 0x07: speed+=500;break;//加速
+            case 0x08: speed-=500;break;//减速
+            case 0x09: turning-=200;break;//左转
+            case 0x0a: turning+=200;break;//右转
+            case 0x0b: speed=0;turning=duojiMid;break;//停止
+            case 0x0c: if(fz_flag) fz_flag=0; else fz_flag=1;break;
+        }  
+        act=0;//cat清零，等待下一次接收
+        if(speed>=8000) speed=8000;
+        if(speed<=0) speed=0;
+        if(turning<=leftLimit)  turning=leftLimit;
+        else if(turning>=rightLimit) turning=rightLimit;
+        if(!fz_flag)
+        {
+            ftm_pwm_duty(FTM0, FTM_CH2, speed);
+            ftm_pwm_duty(FTM0, FTM_CH3, 0);
+        }
+        else
+        {
+            ftm_pwm_duty(FTM0, FTM_CH2, 0);
+            ftm_pwm_duty(FTM0, FTM_CH3, speed);
+        
+        }
+        ftm_pwm_duty(FTM3,FTM_CH5,turning);
+        if(turning<duojiMid)
+        {
+             led (LED0,LED_ON); 
+             led (LED3,LED_ON); 
+             led (LED1,LED_OFF); 
+             led (LED2,LED_OFF); 
+        } 
+        else if(turning>duojiMid)
+        {
+             led (LED1,LED_ON); 
+             led (LED2,LED_ON); 
+             led (LED0,LED_OFF); 
+             led (LED3,LED_OFF);       
+        
+        }
+        if(get_over==1)
+          break;
+    }
+    if(get_over==1)
+    {
+        led (LED1,LED_OFF); 
+        led (LED2,LED_OFF); 
+        led (LED0,LED_OFF); 
+        led (LED3,LED_OFF); 
+        EnableInterrupts;
+    }
+}
 //SD卡初始化
 void init_disk_fatfs(void)   //state.diskok==1;
 {
@@ -282,6 +376,8 @@ void uart5_test_handler()
             case 0x02:Kp_change--; led_turn (LED0);led_turn (LED1);break;
             case 0x03:Kd_change++; led_turn (LED2);led_turn (LED3);break; 
             case 0x04:Kd_change--; led_turn (LED2);led_turn (LED3);break;
+            case 0x05:stop_now();break;
+            case 0x06:bluetooth_control();break;
         }
     }
 

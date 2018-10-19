@@ -58,5 +58,7 @@
 #include "Encoder.h"               //编码器
 #include "zhidao.h"                //直道识别
 
+#include "quick_stop.h"            //急停识别
+
 
 #endif  //__INCLUDE_H__
