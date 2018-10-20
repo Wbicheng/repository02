@@ -92,8 +92,8 @@ void bluetooth_control()
             case 0x06: get_over=1;break;//退出遥控模式
             case 0x07: speed+=500;break;//加速
             case 0x08: speed-=500;break;//减速
-            case 0x09: turning-=200;break;//左转
-            case 0x0a: turning+=200;break;//右转
+            case 0x09: turning-=500;break;//左转
+            case 0x0a: turning+=500;break;//右转
             case 0x0b: speed=0;turning=duojiMid;break;//停止
             case 0x0c: if(fz_flag) fz_flag=0; else fz_flag=1;break;
         }  
@@ -131,6 +131,14 @@ void bluetooth_control()
         }
         if(get_over==1)
           break;
+        if(turning!=duojiMid)
+        {
+            pit_delay_ms(PIT1, 500);
+            turning=duojiMid;
+        
+        }
+
+        ftm_pwm_duty(FTM3,FTM_CH5,turning);
     }
     if(get_over==1)
     {

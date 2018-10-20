@@ -14,7 +14,7 @@ uint8 Center;          //场中心
 uint32 duoji_PWM;      //舵机PWM
 int errors;           //静态偏差
 int perrors=0;        //上一场偏差
-uint8 standardrow=33; //基准行
+uint8 standardrow=38; //基准行  差不多为2个车身位
 uint16 mid_line=0;
 
 void duoji()
@@ -26,7 +26,7 @@ void duoji()
   
   }
   mid_line/=20;
-  switch (deepblue)//基准行
+/*  switch (deepblue)//基准行
   {
   case 1: mid_line=visvalMid[20];break;
   case 2: mid_line=visvalMid[15];break;
@@ -43,6 +43,7 @@ void duoji()
   case 13: mid_line=visvalMid[15];break;
   
   }
+ */
  // mid_line=visvalMid[15];
 
 
