@@ -2,7 +2,7 @@
 #include "include.h"
 #include "dianji.h"
 
-int settingspeed;          //输入速度
+int settingspeed=200;          //输入速度
 uint32 vsyncount;
 
 void dianji()
@@ -52,7 +52,7 @@ void dianji()
      switch(deepblue)
     {
       case 1: settingspeed=200;break;
-      case 2: settingspeed=200;break;
+      case 2: settingspeed=270;break;
       case 3: settingspeed=200;break;
       case 4: settingspeed=210;break;
       case 5: settingspeed=210;break;

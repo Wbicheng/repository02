@@ -33,7 +33,7 @@ void  main(void)
         handle_img();         //图像处理
         LCD_show();           //LCD显示 
         duoji();              //舵机控制
-        dianji();             //电机控制
+     //   dianji();             //电机控制
      /*   timevar = pit_time_get_us(PIT2);//计算程序运行时间
         sitelcd.y=32;
         LCD_Str_ENCH (sitelcd,"timevar：",FCOLOUR,BCOLOUR);

@@ -1,5 +1,6 @@
 #include "common.h"
 #include "include.h"
+#include "quick_stop.h" 
 
 uint8 btow_i=0;//黑到白跳变行数
 uint8 pre_btow_i=0;//上一行黑到白跳变行数 用于条件四

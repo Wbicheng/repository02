@@ -59,6 +59,6 @@
 #include "zhidao.h"                //直道识别
 
 #include "quick_stop.h"            //急停识别
-
+#include "wd_zd.h"            //弯道与终点识别
 
 #endif  //__INCLUDE_H__

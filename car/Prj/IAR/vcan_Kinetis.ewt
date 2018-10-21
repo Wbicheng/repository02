@@ -7148,6 +7148,9 @@
       <name>$PROJ_DIR$\..\..\deepblue\src\quick_stop.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\deepblue\src\wd_zd.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\deepblue\src\zhidao.c</name>
     </file>
   </group>

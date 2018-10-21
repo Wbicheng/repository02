@@ -7,10 +7,11 @@ int8 width[CAMERA_H]={24,25,26,28,29,31,32,33,35,36,37,39,39,41,42,43,45,46,48,4
 
 void handle_img()
 {
-  cleanpoint();             //除噪
+ // cleanpoint();             //除噪
   get_center();             //中线提取
   zhidao();                 //直道识别
   quick_stop();             //急停识别
+  wd_zd();                  //弯道与终点识别
   
   /******************赛道宽度补线****************/
  /* if(wuxiaohang_flag && (youwanflag || zuowanflag))

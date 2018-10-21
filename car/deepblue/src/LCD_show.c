@@ -39,7 +39,7 @@ void LCD_show()
   key_init (KEY_MAX);//初始化键盘
   /********************蜂鸣器**************************/
 
-  if(quickstop_flag)
+  if(quickstop_flag || wdflag || endflag)
    gpio_set (PTD0, 0);
   else
     gpio_set (PTD0, 1);
@@ -68,9 +68,12 @@ void LCD_show()
   
   if(quickstop_flag)
     LCD_Str_ENCH (sitelcd,"前方急停",FCOLOUR,BCOLOUR);
-   
+  else if(wdflag)
+    LCD_Str_ENCH (sitelcd,"前方弯道",FCOLOUR,BCOLOUR);
+  else if(endflag)
+    LCD_Str_ENCH (sitelcd,"前方终点",FCOLOUR,BCOLOUR);
   sitelcd.y=16;
-  LCD_num(sitelcd,currentspeed,FCOLOUR,BCOLOUR);
+  LCD_num(sitelcd,settingspeed,FCOLOUR,BCOLOUR);
  
   sitelcd.y=32;
   LCD_Str_ENCH (sitelcd,"模式：",FCOLOUR,BCOLOUR);

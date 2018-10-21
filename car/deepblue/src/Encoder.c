@@ -116,7 +116,7 @@ void PIT0_IRQHandler(void)
       motorPWM = 0;
 /*    if(stop_flag && !zdnum)
     {
-        if(fznum) //终点线反转50场
+        if(fznum) //终点线反转50乘10ms=0.5s
         {
            fznum--;
            ftm_pwm_duty(FTM0, FTM_CH2, 0);
