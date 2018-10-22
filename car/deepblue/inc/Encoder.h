@@ -17,5 +17,6 @@ extern int Encoder_speed2;//编码器2的脉冲计数值
 extern int speedError[3];
 extern int currentspeed; 
 extern int debug_time;//调试模式
+extern int wd_time;//弯道时间
 
 #endif

@@ -39,7 +39,7 @@ void LCD_show()
   key_init (KEY_MAX);//初始化键盘
   /********************蜂鸣器**************************/
 
-  if(quickstop_flag || wdflag || endflag)
+  if(quickstop_flag==1 || wdflag || endflag)
    gpio_set (PTD0, 0);
   else
     gpio_set (PTD0, 1);
@@ -66,7 +66,7 @@ void LCD_show()
   
   LCD_Str_ENCH (sitelcd,"电机速度：",FCOLOUR,BCOLOUR);
   
-  if(quickstop_flag)
+  if(quickstop_flag==1)
     LCD_Str_ENCH (sitelcd,"前方急停",FCOLOUR,BCOLOUR);
   else if(wdflag)
     LCD_Str_ENCH (sitelcd,"前方弯道",FCOLOUR,BCOLOUR);

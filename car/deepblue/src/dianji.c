@@ -17,14 +17,17 @@ void dianji()
   }
   if(vsyncount == 1000)
     vsyncount = 0;
-  */
+  */ 
+  if(wd_time)
+    settingspeed=380;
+  else settingspeed=200;
 /*************************终点*****************************/
-  if(stop_flag && !zdnum)
+  if(endflag && !zdnum)
     settingspeed=0;
 
 
 /************************直道速度************************/ 
-  else if(zhidaoflag)
+/*  else if(zhidaoflag)
   {
      switch(deepblue)
     {
@@ -47,7 +50,7 @@ void dianji()
   
   }
   /***********************其他速度************************/
-  else
+/*  else
   {
      switch(deepblue)
     {
@@ -68,7 +71,7 @@ void dianji()
   
   
   
-  }
+  }*/
 
 }
 

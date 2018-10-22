@@ -102,6 +102,13 @@ void duoji()
   }
   Kp=Kp_change;///蓝牙调Kp
   Kd=Kd_change;///蓝牙调Kd
+  /***********w弯道************/
+  if(wd_time) 
+  {
+      Kp=20;
+      Kd=50;
+  
+  }
   errors=Center-initcenter;
   duoji_PWM=duojiMid+Kp*errors+Kd*(errors-perrors);    //计算打角
   if(duoji_PWM>rightLimit)

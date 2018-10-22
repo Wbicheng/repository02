@@ -24,6 +24,7 @@ int Encoder_speed2=0;             //±àÂëÆ÷2µÄÂö³å¼ÆÊýÖµ£¬ÔÚmainº¯ÊýÖÐµ÷ÓÃ¼´¿É»ñµ
  float I_moto = 7; 
  float D_moto = 1; 
 int debug_time=0;//µ÷ÊÔÄ£Ê½
+int wd_time=0;//ÍäµÀÊ±¼ä
 
 
 /*!
@@ -91,6 +92,10 @@ void PIT0_IRQHandler(void)
           break;
   
    }
+  if(wdflag)
+    wd_time=600;
+  if(wd_time)
+    wd_time-=10;
   if(deepblue==2 && debug_time!=1000)
   {
       debug_time++;
@@ -100,7 +105,7 @@ void PIT0_IRQHandler(void)
   {
       ftm_pwm_duty(FTM0, FTM_CH2, 0);
       ftm_pwm_duty(FTM0, FTM_CH3, 0);
-  }  
+  } 
   else
   {
      /*****************************µç»úPID**********************/
@@ -114,6 +119,45 @@ void PIT0_IRQHandler(void)
       motorPWM =limitspeed;
    if(motorPWM<0)
       motorPWM = 0;
+   /*************************¼±Í£*******************************/
+ //  if((allow_quickstop_flag==1 || endflag) && !zdnum)
+   if((quickstop_flag==1 || endflag) && !zdnum)
+   {
+        if(fznum) //ÖÕµãÏß·´×ª50³Ë10ms=0.5s
+        {
+           fznum--;
+           ftm_pwm_duty(FTM0, FTM_CH2, 0);
+           ftm_pwm_duty(FTM0, FTM_CH3, 8000);       
+        }
+        else
+        {
+           ftm_pwm_duty(FTM0, FTM_CH3, 0);
+       //     while(currentspeed>10);
+           if(currentspeed<20 && quickstop_flag==1) //ÖÕµãÊ±Ö±½ÓÕ¼¿Õ±È¸ø0
+           {
+         //      pit_delay_ms(PIT1, 200);//¶ÌÔÝÑÓÊ±
+       //  allow_quickstop_flag=2;
+               quickstop_flag=2;
+               fznum=80; //·´×ª³¡ÊýÖØ¶¨Òå¸øÖÕµã¼±Í£
+               zdnum=20;//Ê¶±ðÖÕµãºó¸øÓèÒ»¶¨³¡ÊýµÄÑÓÊ±           
+           }
+        }
+   }
+
+   else
+   {
+      if(motorPWM>0) //Õý³£Çý¶¯µç»ú
+      {
+          ftm_pwm_duty(FTM0, FTM_CH2, motorPWM);
+          ftm_pwm_duty(FTM0, FTM_CH3, 0);
+      }
+    else
+      {
+          ftm_pwm_duty(FTM0, FTM_CH2, 0);
+          ftm_pwm_duty(FTM0, FTM_CH3, -motorPWM);
+      }
+   
+   }
 /*    if(stop_flag && !zdnum)
     {
         if(fznum) //ÖÕµãÏß·´×ª50³Ë10ms=0.5s
@@ -129,18 +173,7 @@ void PIT0_IRQHandler(void)
    // else
    // ftm_pwm_duty(FTM0, FTM_CH2, motorPWM);
 //    else 
-     if(motorPWM>0)
-    {
-      ftm_pwm_duty(FTM0, FTM_CH2, motorPWM);
-      ftm_pwm_duty(FTM0, FTM_CH3, 0);
-    }
-    else
-    {
-      ftm_pwm_duty(FTM0, FTM_CH2, 0);
-      ftm_pwm_duty(FTM0, FTM_CH3, -motorPWM);
-    }
-      
-   
+ 
     speedError[0] = speedError[1];//ÉÏÉÏ´ÎÎó²î
     speedError[1] = speedError[2];//ÉÏ´ÎÎó²î
   }

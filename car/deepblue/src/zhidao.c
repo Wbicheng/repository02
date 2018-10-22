@@ -142,44 +142,19 @@ void zhidao()
 		}
 	}*/
         
- //终点线
-       if(!stop_enableflag) //前期不扫描终点
+ //急停与终点过度场数
+       if(!stop_enableflag) //前期不扫描终点和急停
         {
             zdnum++;
-            if(zdnum==300)
+            if(zdnum==10) //过渡 场
             {
               stop_enableflag=1;
-              zdnum=5;
+              zdnum=15; //一段时间后在执行急停程序
             }
         }
-        if(stop_enableflag)
-        {
-            btownum=0;
-            i=48;
-            for(j=0;j<=CAMERA_W-1;j++)
-            {
-		if(img[i][j]==white && img[i][j+1]==black)
-		btownum++;
-            }
-            if(btownum>5)
-            {
-		btownum=0;
-		i=52;
-		for(j=0;j<=CAMERA_W-1;j++)
-		{
-                    if(img[i][j]==white && img[i][j+1]==black)
-                    btownum++;
-		}
-		if(btownum>5)
-                    stop_flag=1;
-	}
-        if(stop_flag)
-        {
-           if(zdnum!=0) 
-              zdnum--;
-        }
-        }
-     
+    //   if((endflag||allow_quickstop_flag) && zdnum) //识别后延迟一段场数再执行急停
+         if((endflag||quickstop_flag==1) && zdnum) //识别后延迟一段场数再执行急停
+            zdnum--;
 
 
         

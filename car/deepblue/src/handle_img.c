@@ -10,8 +10,15 @@ void handle_img()
  // cleanpoint();             //除噪
   get_center();             //中线提取
   zhidao();                 //直道识别
-  quick_stop();             //急停识别
-  wd_zd();                  //弯道与终点识别
+  if(stop_enableflag)//过渡一定场数后开始识别
+  {
+  //    if(allow_quickstop_flag==0) //急停标志位生效后不再识别急停，即不清理
+      if(quickstop_flag==0)
+        quick_stop();             //急停识别
+  //    else quickstop_flag=0;   //允许急停标志位生效时下一场清掉急停识别标志位，故蜂鸣器警报只有一次
+      if(endflag==0)
+        wd_zd();                  //弯道与终点识别  
+  }
   
   /******************赛道宽度补线****************/
  /* if(wuxiaohang_flag && (youwanflag || zuowanflag))

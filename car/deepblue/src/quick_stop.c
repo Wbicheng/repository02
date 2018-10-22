@@ -5,12 +5,13 @@
 uint8 btow_i=0;//黑到白跳变行数
 uint8 pre_btow_i=0;//上一行黑到白跳变行数 用于条件四
 uint8 quickstop_flag=0;//急停标志位
+uint8 allow_quickstop_flag=0;//允许急停标志位
 uint8 left_limit_flag=0;//左边极限为白
 uint8 right_limit_flag=0;//右边极限为白
 
 void quick_stop()
 {
-    if(wuxiaohang<=20 && lianxuhangnum_right>18)//条件一：无效行小于20,右边从底向上连续行数大于18
+    if(wuxiaohang<=30 && lianxuhangnum_right>18)//条件一：无效行小于20,右边从底向上连续行数大于18
     {
 	quickstop_flag=0;//急停标志位
 	btownum=0;//黑到白行跳变数
@@ -87,4 +88,6 @@ void quick_stop()
 	if(btownum!=1)
 		quickstop_flag=0;
     }
+    if(quickstop_flag) 
+      allow_quickstop_flag=1;
 }

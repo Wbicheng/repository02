@@ -256,8 +256,8 @@ void allinit()
     LCD_FSTR_CH(site,vcan_str,FCOLOUR,BCOLOUR);
     site.y = 0;
     /*******************反转场数***********************/
- //   fznum=50;
-   switch(deepblue)
+    fznum=80;
+ /*  switch(deepblue)
     {
     case 1:fznum=50;
     case 2:fznum=60;
@@ -272,9 +272,8 @@ void allinit()
     case 11:fznum=60;
     case 12:fznum=60;
     case 13:fznum=60;
-    
-    
-    } 
+} 
+ */ 
    
     /*****************舵机************************/
     ftm_pwm_init(FTM3,FTM_CH5,300,duojiMid);
