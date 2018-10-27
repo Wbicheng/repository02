@@ -256,7 +256,7 @@ void allinit()
     LCD_FSTR_CH(site,vcan_str,FCOLOUR,BCOLOUR);
     site.y = 0;
     /*******************反转场数***********************/
-    fznum=80;
+    fznum=100;
  /*  switch(deepblue)
     {
     case 1:fznum=50;
@@ -384,9 +384,9 @@ void uart5_test_handler()
             case 0x03:Kd_change++; led_turn (LED2);led_turn (LED3);break; 
             case 0x04:Kd_change--; led_turn (LED2);led_turn (LED3);break;
             case 0x05:stop_now();break;
-          //  case 0x06:bluetooth_control();break;
-        case 0x06:settingspeed+=30;break;
-        case 0x07:settingspeed-=30;break;
+            case 0x0c:bluetooth_control();break;
+        case 0x06:settingspeed+=10;break;
+        case 0x07:settingspeed-=10;break;
         }
     }
 

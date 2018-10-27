@@ -25,6 +25,7 @@ int Encoder_speed2=0;             //±‡¬Î∆˜2µƒ¬ˆ≥Âº∆ ˝÷µ£¨‘⁄main∫Ø ˝÷–µ˜”√º¥ø…ªÒµ
  float D_moto = 1; 
 int debug_time=0;//µ˜ ‘ƒ£ Ω
 int wd_time=0;//Õ‰µ¿ ±º‰
+int last_motorPWM=0;
 
 
 /*!
@@ -92,10 +93,12 @@ void PIT0_IRQHandler(void)
           break;
   
    }
+   /******Õ‰µ¿øÿ÷∆*****/
   if(wdflag)
-    wd_time=600;
-  if(wd_time)
+    wd_time=10000;
+  if(wd_time && wd_time!=100)
     wd_time-=10;
+  
   if(deepblue==2 && debug_time!=1000)
   {
       debug_time++;
@@ -127,7 +130,7 @@ void PIT0_IRQHandler(void)
         {
            fznum--;
            ftm_pwm_duty(FTM0, FTM_CH2, 0);
-           ftm_pwm_duty(FTM0, FTM_CH3, 8000);       
+           ftm_pwm_duty(FTM0, FTM_CH3, 2000);       
         }
         else
         {
@@ -146,17 +149,26 @@ void PIT0_IRQHandler(void)
 
    else
    {
-      if(motorPWM>0) //’˝≥£«˝∂ØµÁª˙
+      if(motorPWM>=0 ) //’˝≥£«˝∂ØµÁª˙
       {
           ftm_pwm_duty(FTM0, FTM_CH2, motorPWM);
           ftm_pwm_duty(FTM0, FTM_CH3, 0);
       }
-    else
+  
+  /*   else
       {
           ftm_pwm_duty(FTM0, FTM_CH2, 0);
           ftm_pwm_duty(FTM0, FTM_CH3, -motorPWM);
-      }
-   
+      }*/
+      
+ /*     if(motorPWM-last_motorPWM>=50 ) //≥¨π˝50÷¡¬˝¬˝º”/ºı
+        motorPWM=last_motorPWM+50;
+      else if(last_motorPWM-motorPWM>=50 )
+        motorPWM=last_motorPWM-50;
+       ftm_pwm_duty(FTM0, FTM_CH2, motorPWM);
+       ftm_pwm_duty(FTM0, FTM_CH3, 0);
+      last_motorPWM=motorPWM;//…œ“ª¥Œpwm÷µ
+  */ 
    }
 /*    if(stop_flag && !zdnum)
     {

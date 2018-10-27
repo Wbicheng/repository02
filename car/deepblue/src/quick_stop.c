@@ -11,7 +11,7 @@ uint8 right_limit_flag=0;//右边极限为白
 
 void quick_stop()
 {
-    if(wuxiaohang<=30 && lianxuhangnum_right>18)//条件一：无效行小于20,右边从底向上连续行数大于18
+    if(wuxiaohang<=30 && lianxuhangnum_right>18)//条件一：无效行小于20,右边从底向上连续行数大于18///////////
     {
 	quickstop_flag=0;//急停标志位
 	btownum=0;//黑到白行跳变数
@@ -31,7 +31,7 @@ void quick_stop()
 			if(btow_i!=0)
 			  pre_btow_i=btow_i;	
 			btow_i=i;
-			if(pre_btow_i!=0 && pre_btow_i-btow_i>10) //两杠之间距离小于10
+			if(pre_btow_i!=0 && pre_btow_i-btow_i>10) //两杠之间距离小于10////////
 			{
 				quickstop_flag=0;
 				break;
@@ -46,7 +46,7 @@ void quick_stop()
     {
 	left_limit_flag=0;
 	right_limit_flag=0;
-	for(i=btow_i-5;i!=btow_i+5;i++)
+	for(i=btow_i-8;i!=btow_i+8;i++)
 	{
 		if(img[i][0]==white)
 			left_limit_flag=1;
@@ -59,6 +59,7 @@ void quick_stop()
 		quickstop_flag=0;
 
     }
+ 
     if(quickstop_flag) //条件四：右下为黑 第三杠右边界到CAMERA_W-1全黑
     {
         for(j=right[pre_btow_i]+1;j!=CAMERA_W;j++)
@@ -71,7 +72,7 @@ void quick_stop()
           }
 
     }
-    if(quickstop_flag)//条件五：右边界只有一个黑to白跳变
+/*    if(quickstop_flag)//条件五：右边界只有一个黑to白跳变
     {               
 	btownum=0;
 	j=CAMERA_W-1;
@@ -90,4 +91,5 @@ void quick_stop()
     }
     if(quickstop_flag) 
       allow_quickstop_flag=1;
+   */
 }

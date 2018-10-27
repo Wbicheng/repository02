@@ -8,5 +8,6 @@ extern uint8 youtiaobian_left;		//右边界左跳变数
 extern uint8 youtiaobian_right;	//右边界右跳变数
 extern uint8 wdflag;
 extern uint8 endflag; 
-
+extern uint8 youtiaobianhang_left[10];		//右边界左跳变行
+extern uint8 blackpoint_zd;			//终点行黑点数
 #endif  //__WD_ZD_H__

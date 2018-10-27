@@ -18,5 +18,6 @@ extern int speedError[3];
 extern int currentspeed; 
 extern int debug_time;//调试模式
 extern int wd_time;//弯道时间
+extern int last_motorPWM;//上一次的pwm
 
 #endif

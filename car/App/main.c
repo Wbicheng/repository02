@@ -6,7 +6,7 @@ void  main(void)
 { 
    // Site_t sitelcd={0,0};
     uart_init(UART0,115200);
-    allinit();
+    allinit ();
     LCD_clear(RED);
     set_vector_handler(PORTC_VECTORn ,PORTC_IRQHandler);    //设置PORTC的中断服务函数为 PORTC_IRQHandler
     enable_irq (PORTC_IRQn); //使能PORTC中断
@@ -33,7 +33,7 @@ void  main(void)
         handle_img();         //图像处理
         LCD_show();           //LCD显示 
         duoji();              //舵机控制
-   //     dianji();             //电机控制
+       dianji();             //电机控制
      /*   timevar = pit_time_get_us(PIT2);//计算程序运行时间
         sitelcd.y=32;
         LCD_Str_ENCH (sitelcd,"timevar：",FCOLOUR,BCOLOUR);

@@ -76,10 +76,12 @@ void LCD_show()
   LCD_num(sitelcd,settingspeed,FCOLOUR,BCOLOUR);
  
   sitelcd.y=32;
-  LCD_Str_ENCH (sitelcd,"模式：",FCOLOUR,BCOLOUR);
+ // LCD_Str_ENCH (sitelcd,"模式：",FCOLOUR,BCOLOUR);
+   LCD_Str_ENCH (sitelcd,"当前速度：",FCOLOUR,BCOLOUR);
   
   sitelcd.y=48;
-  LCD_num(sitelcd,deepblue,FCOLOUR,BCOLOUR);
+ // LCD_num(sitelcd,deepblue,FCOLOUR,BCOLOUR);
+   LCD_num(sitelcd,currentspeed,FCOLOUR,BCOLOUR);
 
 }
 

@@ -53,7 +53,7 @@ void zhidao()
 	{
 		for(i=CAMERA_H-1;i>=tiaobianhang_left;i--)
 		{
-			if(left[i]-left[i-1]>=5 || left[i]-left[i-1]<=-5)
+			if(left[i]-left[i-1]>=8 || left[i]-left[i-1]<=-8)
 				break;
 			else
 			lianxuhangnum_left++;
@@ -63,7 +63,7 @@ void zhidao()
 	if(tiaobianflag_right)
 	{
 		for(i=CAMERA_H-1;i>=tiaobianhang_right;i--)
-			if(right[i]-right[i-1]>=5 || right[i]-right[i-1]<=-5)
+			if(right[i]-right[i-1]>=8 || right[i]-right[i-1]<=-8)
 				break;
 			else 
 			lianxuhangnum_right++;

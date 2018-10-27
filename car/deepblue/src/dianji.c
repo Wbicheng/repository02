@@ -17,10 +17,26 @@ void dianji()
   }
   if(vsyncount == 1000)
     vsyncount = 0;
-  */ 
-  if(wd_time)
-    settingspeed=380;
-  else settingspeed=200;
+  */
+  if(deepblue==3)
+  {
+     if(wd_time==100)
+      settingspeed=280;//弯道后加速
+     else if(wd_time>100)
+      settingspeed=200;
+     else if(wd_time==0)
+       settingspeed=280;  
+  }
+  else
+  {
+     if(wd_time==100)
+        settingspeed=200;//弯道后加速
+     else if(wd_time>100)
+        settingspeed=200;
+     else if(wd_time==0)
+        settingspeed=200;
+  }
+ 
 /*************************终点*****************************/
   if(endflag && !zdnum)
     settingspeed=0;
