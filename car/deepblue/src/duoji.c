@@ -103,18 +103,27 @@ void duoji()
   Kp=Kp_change;///蓝牙调Kp
   Kd=Kd_change;///蓝牙调Kd
   /***********w弯道************/
-  if(wd_time) 
+ /* if(wd_time)  /////////
   {
       Kp=20;
       Kd=50;
   
-  }
+  }*/
+  
   errors=Center-initcenter;
-  duoji_PWM=duojiMid+Kp*errors+Kd*(errors-perrors);    //计算打角
+  duoji_PWM=duojiMid+Kp*errors+Kd*(errors-perrors);    //计算打角 
+  if(duoji_PWM<5040 && duoji_PWM<4500 && wd_time>=3000)
+  {
+      duoji_PWM-=250;
+  }
   if(duoji_PWM>rightLimit)
     duoji_PWM=rightLimit;
   if(duoji_PWM<leftLimit)
-    duoji_PWM=leftLimit;                      //保护舵机
+    duoji_PWM=leftLimit; //保护舵机
+ /* if(wd_time>=9500)
+   ftm_pwm_duty(FTM3,FTM_CH5,3900);
+  else*/
+
   ftm_pwm_duty(FTM3,FTM_CH5,duoji_PWM);            
   perrors=errors;
 }

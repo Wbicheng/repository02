@@ -23,19 +23,29 @@ void dianji()
      if(wd_time==100)
       settingspeed=280;//弯道后加速
      else if(wd_time>100)
-      settingspeed=200;
+      settingspeed=180;
      else if(wd_time==0)
        settingspeed=280;  
   }
+  else if(deepblue==8)
+  {
+     if(wd_time==100)
+        settingspeed=200;//弯道后加速
+     else if(wd_time>100)
+        settingspeed=150;
+     else if(wd_time==0)
+        settingspeed=200;
+  } 
   else
   {
      if(wd_time==100)
         settingspeed=200;//弯道后加速
      else if(wd_time>100)
-        settingspeed=200;
+        settingspeed=180;
      else if(wd_time==0)
         settingspeed=200;
   }
+  
  
 /*************************终点*****************************/
   if(endflag && !zdnum)
